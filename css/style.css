@@ -62,53 +62,10 @@ img {
     padding-top: 50px;
 }
 
-.alert {
-    background-color: var(--third-color);
-    color: var(--alert-color);
-    display: flex;
-    justify-content:flex-start;
-    margin-bottom: 20px;
-    animation: blink 0.3s ease-in-out infinite;
-    display: none;
-}
-
-.alert_visible {
-    display: block;
-}
-
-.alert-exclaim {
-    position: relative;
-}
-
-.alert-exclaim:before {
-    position: absolute;
-    content: '';
-    top: -10px;
-    left: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid transparent;
-    border-bottom: 18px solid var(--alert-color);
-}
-
-.alert-exclaim:after {
-    font-weight: 700;
-    position: absolute;
-    content: '!';
-    top: 1px;
-    left: 8px;
-    color: #fff;
-}
-
-.alert-text {
-    display: block;
-    margin-left: 30px;
-}
-
 .weather {
     background-color: var(--primary-color);
     color: #fff;
-    width: 400px;
+    width: 320px;
     margin: 0 auto;
     padding: 30px;
     border-radius: 10px;
