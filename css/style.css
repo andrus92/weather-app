@@ -73,6 +73,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .weather-header {
@@ -100,17 +101,40 @@ img {
 }
 
 .input {
-    width: 88%;
+    width: 82%;
     border: none;
     outline: none;
 }
 
+.microphone-hint {
+    position: absolute;
+    top: 10px;
+    font-size: 14px;
+    background-color: var(--secondary-color);
+    color: black;
+    font-style: italic;
+}
+
+.microphone-hint_invisible {
+    display: none;
+}
+
+.microphone,
 .search,
 .location {
     background-color: transparent;
     border: none;
     width: 6%;
 }
+
+.microphone {
+    transition: all 0.3s;
+}
+
+.microphone:hover ~ .microphone-hint{
+    display: block;
+}
+
 
 .weather-general-info {
     padding: 5px 0;

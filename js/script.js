@@ -1,5 +1,7 @@
 const API_KEY = '8629a6d80dcc3eebcaab0691c70d49a8';
 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
 const Fahrenheit2Celsius = (t) => Math.round(t - 273.15);
 
 const detailsBtn = document.querySelector('.btn-details');
@@ -7,6 +9,7 @@ const weatherHeader = document.querySelector('.weather-header');
 const weatherDetails = document.querySelector('.weather-details');
 const weatherInfo = document.querySelector('.weather-info');
 const weatherGeneralInfo = document.querySelector('.weather-general-info');
+const microphoneBtn = document.querySelector('.microphone');
 const searchBtn = document.querySelector('.search');
 const locationBtn = document.querySelector('.location');
 const input = document.querySelector('.input');
@@ -37,6 +40,37 @@ input.addEventListener('keypress', (event) => {
 locationBtn.addEventListener('click', () => {
     getWeather(false);
     input.value = '';
+});
+
+microphoneBtn.addEventListener('click', () => {
+    input.value = '';
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+    const commands = ['find', 'search'];
+
+    function handleSpeech(speechEvent) {
+        const transcript = Array.from(speechEvent.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join(' ');
+        ;
+        
+        if (speechEvent.results[0].isFinal) {
+            recognition.stop();
+
+            const filterRes = commands.filter(cmd => transcript.toLowerCase().endsWith(cmd));
+            if (filterRes.length !== 0) {
+                input.value = transcript.substring(0, transcript.length - filterRes[0].length);
+                handleSearch();
+            } else {
+                input.value = transcript;
+            }
+        }
+    }
+
+    recognition.start();
+    recognition.addEventListener('result', handleSpeech);
 });
 
 detailsBtn.addEventListener('click', () => {
@@ -143,5 +177,4 @@ const displayError = () => {
 }
 
 getWeather(false);
-
 
